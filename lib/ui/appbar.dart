@@ -32,31 +32,67 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
     super.dispose();
   }
   int get _opacityValue => 255- (255*_alpha.value).toInt();
+  TextEditingController _textController; 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child:Stack( 
           children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.menu, color: Colors.white.withAlpha(_opacityValue),),
-              
-            ), 
-            Text(
-              'My Anime List', 
-              style: TextStyle(
-                fontSize: 24,
-                color: Color(Colors.white.withAlpha(_opacityValue).value)
+          Positioned(
+            left: MediaQuery.of(context).size.width*(1-_alpha.value) + MediaQuery.of(context).size.width*0.05,
+            child:Theme(
+              data: ThemeData.light(),
+              child: Container(
+              width: MediaQuery.of(context).size.width*0.93,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.search, color: Colors.grey,),
+                    onPressed: () => _controller.reverse(),
+                  
+                  ), 
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search for Anime", 
+                        border: InputBorder.none
+                      ),
+                    ),
+                  )
+                ],
               ),
-            ), 
-            IconButton(
-              icon: Icon(Icons.search, color: Colors.white,),
-              onPressed: () => _controller.isCompleted? _controller.reverse() : _controller.forward(),
-            )
-          ],
-        ),
-      ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(30)), 
+                color: Colors.white
+              ),
+            ),
+          ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.menu, color: Colors.white.withAlpha(_opacityValue),),
+                onPressed: () => _controller.isCompleted ? _controller.reverse() : null,
+              ), 
+              Text(
+                'My Anime List', 
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Color(Colors.white.withAlpha(_opacityValue).value)
+                ),
+              ), 
+              IconButton(
+                icon: Icon(Icons.search, color: Colors.white,),
+                color: Colors.white.withAlpha(_opacityValue),
+                onPressed: () => !_controller.isCompleted? _controller.forward() : null,
+              )
+            ],
+          ),
+        ]
+      )),
     );
   }
 }
