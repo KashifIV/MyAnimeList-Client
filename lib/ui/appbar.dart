@@ -49,7 +49,7 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.search, color: Colors.grey,),
+                    icon: Icon(Icons.cancel, color: Colors.grey,),
                     onPressed: () => _controller.reverse(),
                   
                   ), 
@@ -74,6 +74,7 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
+                enableFeedback: !_controller.isCompleted,
                 icon: Icon(Icons.menu, color: Colors.white.withAlpha(_opacityValue),),
                 onPressed: () => _controller.isCompleted ? _controller.reverse() : null,
               ), 
@@ -86,6 +87,7 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
               ), 
               IconButton(
                 icon: Icon(Icons.search, color: Colors.white,),
+                enableFeedback: !_controller.isCompleted,
                 color: Colors.white.withAlpha(_opacityValue),
                 onPressed: () => !_controller.isCompleted? _controller.forward() : null,
               )
