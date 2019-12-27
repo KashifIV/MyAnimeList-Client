@@ -8,11 +8,13 @@ class HomePage extends StatelessWidget{
       appBar: MyAppbar(),
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(20),
               child: Text(
                   'Anime',
+                  textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: 30, 
                     fontWeight: FontWeight.bold,
