@@ -3,8 +3,10 @@ import 'package:jikan_dart/jikan_dart.dart';
 import 'package:my_anime_list_client/ui/anime_layout.dart';
 class AnimePage extends StatefulWidget{
   final int id; 
-  final String title; 
-  AnimePage({this.id, this.title}); 
+  final String title, startDate; 
+  final int episodes;
+  final double score;
+  AnimePage({this.id, this.title, this.episodes, this.score, this.startDate}); 
   _AnimePage createState() => _AnimePage(); 
 }
 class _AnimePage extends State<AnimePage>{
@@ -32,10 +34,10 @@ class _AnimePage extends State<AnimePage>{
     //api.getAnimeStats(widget.id).then((onValue) => animeStats = onValue); 
   }
   Widget pageHandler(){
-    if (images != null && animeInfo != null && animeStats != null){
+    if (images == null || animeInfo == null){
       return Center(child: CircularProgressIndicator(),); 
     }
-    return AnimeLayout(animeInfo: animeInfo, images: images,);
+    return AnimeLayout(animeInfo: animeInfo, images: images, title: widget.title, episodes: widget.episodes, score: widget.score, startDate: widget.startDate,);
   }
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class _AnimePage extends State<AnimePage>{
         title: Text(widget.title),
       ),
       body: pageHandler(),
+      backgroundColor: Colors.black,
     );
   } 
 }

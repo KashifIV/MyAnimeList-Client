@@ -20,7 +20,7 @@ class _TopAnimeCarrousel extends State<TopAnimeCarrousel>{
   @override
   Widget build(BuildContext context) {
     return Carrousel(
-      items: topAnime == null ? null : topAnime.map((item) => CarrouselItem(id:item.malId, imageURL: item.imageUrl, title: item.title, rating: item.rank.toDouble(),)).toList(),
+      items: topAnime == null ? null : topAnime.map((item) => CarrouselItem(anime: item,)).toList(),
     );
   }
 } 
