@@ -25,7 +25,11 @@ class _AnimeLayout extends State<AnimeLayout>{
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => Image.network(widget.images[index].small),
+        itemBuilder: (context, index) => GestureDetector(onTap: (){
+          setState(() {
+            _index = index; 
+          });
+        }, child:Image.network(widget.images[index].small)),
         itemCount: widget.images.length,
         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
       ),
@@ -64,13 +68,13 @@ class _AnimeLayout extends State<AnimeLayout>{
             ),
           ), 
         ),
-        SizedBox(height: 40), 
+        SizedBox(height: 30), 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             StatTab(icon: Icons.calendar_today, value: widget.startDate,), 
             StatTab(icon: Icons.star, color: Colors.orange, value: widget.score.toString(),), 
-            StatTab(icon: Icons.collections, color: Colors.yellow, value: widget.episodes.toString(),)
+            StatTab(icon: Icons.ondemand_video, color: Colors.yellow, value: widget.episodes.toString(),)
           ],
         )
       ],),
@@ -91,7 +95,7 @@ class _AnimeLayout extends State<AnimeLayout>{
         ),
         Container(
           child: Text(
-            widget.animeInfo.toJson()
+            widget.animeInfo.moreinfo.toString()
           ),
           width: 700,
         )
