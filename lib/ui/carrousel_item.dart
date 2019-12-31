@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jikan_dart/jikan_dart.dart';
+import 'package:my_anime_list_client/data/anime.dart';
 import 'package:my_anime_list_client/ui/anime_page.dart';
 class CarrouselItem extends StatelessWidget{
-  final Top anime; 
+  final Anime anime; 
   CarrouselItem({@required this.anime}); 
 
   @override
@@ -15,13 +15,13 @@ class CarrouselItem extends StatelessWidget{
       clipBehavior: Clip.hardEdge,
       child: GestureDetector(
         onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> 
-          AnimePage(id: anime.malId, title: anime.title, episodes: anime.episodes, score: anime.score, startDate: anime.startDate,))),
+          AnimePage(anime: anime,))),
         child: Container(
         height: 200,
         child: Stack(
           overflow: Overflow.clip,
           children: <Widget>[
-            Image.network(anime.imageUrl), 
+            (anime.posterImage == null) ? FlutterLogo(): anime.posterImage.large, 
             Positioned(
               top: 170,
               left: 0,
@@ -31,7 +31,7 @@ class CarrouselItem extends StatelessWidget{
                 color: Colors.white,
                 child: Center(
                   child: Text(
-                    anime.title, 
+                    anime.title_en, 
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black

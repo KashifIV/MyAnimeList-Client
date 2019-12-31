@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jikan_dart/jikan_dart.dart';
+import 'package:my_anime_list_client/data/anime.dart';
 import 'package:my_anime_list_client/ui/StatTab.dart';
 class AnimeLayout extends StatefulWidget{
-  final MoreInfo animeInfo; 
-  final List<Picture> images; 
-  final Stats animeStats;
-  final String title, startDate;
-  final int episodes; 
-  final double score;   
-   AnimeLayout({this.title, this.animeInfo, this.images, this.animeStats
-                , this.episodes, this.score, this.startDate});
+  final Anime anime; 
+   AnimeLayout({this.anime});
   _AnimeLayout createState() => _AnimeLayout(); 
 }
 class _AnimeLayout extends State<AnimeLayout>{
@@ -29,8 +23,8 @@ class _AnimeLayout extends State<AnimeLayout>{
           setState(() {
             _index = index; 
           });
-        }, child:Image.network(widget.images[index].small)),
-        itemCount: widget.images.length,
+        }, child:Image.network((widget.anime.posterImage == null )? FlutterLogo():widget.anime.posterImage.smallURL)),
+        itemCount: 1,
         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
       ),
     ),
@@ -40,7 +34,7 @@ class _AnimeLayout extends State<AnimeLayout>{
   List<Widget> _backgroundImage(BuildContext context){
     return <Widget>[
       
-      Image.network(widget.images[_index].large, fit: BoxFit.fitWidth, width: MediaQuery.of(context).size.width,),
+      Image.network(widget.anime.posterImage.largeURL, fit: BoxFit.fitWidth, width: MediaQuery.of(context).size.width,),
       Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -61,7 +55,7 @@ class _AnimeLayout extends State<AnimeLayout>{
           padding: EdgeInsets.all(10),
           width: MediaQuery.of(context).size.width,
           child:Text(
-            widget.title, 
+            widget.anime.title_canon, 
             style: TextStyle(
               fontSize: 40, 
               fontWeight: FontWeight.bold
@@ -72,9 +66,9 @@ class _AnimeLayout extends State<AnimeLayout>{
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            StatTab(icon: Icons.calendar_today, value: widget.startDate,), 
-            StatTab(icon: Icons.star, color: Colors.orange, value: widget.score.toString(),), 
-            StatTab(icon: Icons.ondemand_video, color: Colors.yellow, value: widget.episodes.toString(),)
+            StatTab(icon: Icons.calendar_today, value: widget.anime.startDate,), 
+            StatTab(icon: Icons.star, color: Colors.orange, value: widget.anime.averageRating.toString(),), 
+            StatTab(icon: Icons.ondemand_video, color: Colors.yellow, value: widget.anime.episodeCount.toString(),)
           ],
         )
       ],),
@@ -95,7 +89,7 @@ class _AnimeLayout extends State<AnimeLayout>{
         ),
         Container(
           child: Text(
-            widget.animeInfo.moreinfo.toString()
+            widget.anime.synopsis.toString()
           ),
           width: 700,
         )

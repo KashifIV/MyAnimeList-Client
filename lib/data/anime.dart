@@ -17,6 +17,7 @@ class Anime{
   }); 
 
   factory Anime.fromMap(Map<String, dynamic> json){
+    json = json['attributes'];
     return Anime(
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'], 
