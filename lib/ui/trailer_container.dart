@@ -22,11 +22,17 @@ class _TrailerContainer extends State<TrailerContainer>{
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: YoutubePlayer(
-        controller: _controller, 
-        showVideoProgressIndicator: true, 
-      )
-    );
+    try{
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 15),
+      
+        child: YoutubePlayer(
+          controller: _controller, 
+          showVideoProgressIndicator: true, 
+        )
+      );
+    }catch(e){
+      return Container(child: Text('Could not Load Trailer'),);
+    }
   }
 }

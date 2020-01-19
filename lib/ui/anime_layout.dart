@@ -14,6 +14,7 @@ class _AnimeLayout extends State<AnimeLayout>{
   void initState(){
     super.initState(); 
     _index = 0; 
+    print(widget.anime.trailer);
   }
   Widget _imageSelection(BuildContext context){
     return Positioned( child: Container(
@@ -98,7 +99,7 @@ class _AnimeLayout extends State<AnimeLayout>{
           width: 700,
         ), 
         QuickFacts(anime: widget.anime,), 
-        (widget.anime.trailer == null ) ? Text('no trailer') : TrailerContainer(widget.anime.trailer)
+        (widget.anime.trailer == null || widget.anime.trailer =='') ? Text('no trailer') : TrailerContainer(widget.anime.trailer)
       ]
     );
   }
