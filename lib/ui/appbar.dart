@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_anime_list_client/domain/view_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class MyAppbar extends StatefulWidget implements PreferredSizeWidget{
   @override 
@@ -13,8 +15,13 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
   AnimationController _controller; 
   Animation<double> _alpha; 
 
+  TextEditingController _textController; 
+  FocusNode keyboardFocus; 
+  bool isSearching;
   void initState(){
-    super.initState(); 
+    super.initState();
+    isSearching = false; 
+    keyboardFocus = FocusNode();  
     _controller = AnimationController(
     duration: const Duration(milliseconds: 500), vsync: this);
     _alpha = Tween(begin: 0.0, end:1.0 ).animate(
@@ -29,13 +36,26 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
   }
   void dispose(){
     _controller.dispose(); 
+    keyboardFocus.dispose();
     super.dispose();
   }
   int get _opacityValue => 255- (255*_alpha.value).toInt();
-  TextEditingController _textController; 
+
+  void _submitSearch(String query, ViewModel model, BuildContext context){
+    setState(() {
+      isSearching = true; 
+    });
+    model.submitSearch(query, context).then((value){
+      setState(() {
+        isSearching = false; 
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return ScopedModelDescendant<ViewModel>(
+      builder: (context, child, model) => SafeArea(
       child: Container(
         child:Stack( 
           children: <Widget>[
@@ -50,17 +70,21 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.cancel, color: Colors.grey,),
-                    onPressed: () => _controller.reverse(),
+                    onPressed: () => (_textController.text == "") ? _controller.reverse() : _textController.clear(),
                   
                   ), 
                   Expanded(
                     child: TextField(
+                      controller: _textController,
+                      focusNode: keyboardFocus,
+                      onSubmitted: (value) => _submitSearch(value, model, context),
                       decoration: InputDecoration(
                         hintText: "Search for Anime", 
                         border: InputBorder.none
                       ),
                     ),
-                  )
+                  ), 
+                  (isSearching) ? CircularProgressIndicator() : SizedBox(width: 30,),
                 ],
               ),
               decoration: BoxDecoration(
@@ -89,12 +113,17 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
                 icon: Icon(Icons.search, color: Colors.white,),
                 enableFeedback: !_controller.isCompleted,
                 color: Colors.white.withAlpha(_opacityValue),
-                onPressed: () => !_controller.isCompleted? _controller.forward() : null,
+                onPressed: (){
+                  if (!_controller.isCompleted){
+                    _controller.forward(); 
+                    FocusScope.of(context).requestFocus(keyboardFocus); 
+                  }
+                }
               )
             ],
           ),
         ]
       )),
-    );
+    ));
   }
 }

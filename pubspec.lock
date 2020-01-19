@@ -354,6 +354,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  tabbed_bottom_sheet:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: d59c6866ae61b369a035ce78260e20a96f768afa
+      url: "https://github.com/KashifIV/tabbed_bottom_sheet"
+    source: git
+    version: "0.0.1"
   term_glyph:
     dependency: transitive
     description:
@@ -389,6 +398,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7+13"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.19+5"
   xml:
     dependency: transitive
     description:
@@ -403,5 +419,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  youtube_player_flutter:
+    dependency: "direct main"
+    description:
+      name: youtube_player_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.3+2"
 sdks:
   dart: ">=2.6.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"

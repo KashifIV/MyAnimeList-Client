@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_anime_list_client/data/anime.dart';
 import 'package:my_anime_list_client/ui/StatTab.dart';
+import 'package:my_anime_list_client/ui/quick_facts.dart';
+import 'package:my_anime_list_client/ui/trailer_container.dart';
 class AnimeLayout extends StatefulWidget{
   final Anime anime; 
    AnimeLayout({this.anime});
@@ -39,7 +41,7 @@ class _AnimeLayout extends State<AnimeLayout>{
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.transparent, Colors.black], 
-            begin: Alignment.topCenter, 
+            begin: Alignment.center, 
             end: Alignment.bottomCenter, 
           )
         ),
@@ -48,7 +50,7 @@ class _AnimeLayout extends State<AnimeLayout>{
   }
   Widget _title(BuildContext context){
     return Positioned(
-      bottom: 130,
+      bottom: 30,
 
       child: Column(children: <Widget>[
         Container(
@@ -62,7 +64,7 @@ class _AnimeLayout extends State<AnimeLayout>{
             ),
           ), 
         ),
-        SizedBox(height: 30), 
+        SizedBox(height: 10), 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -83,16 +85,20 @@ class _AnimeLayout extends State<AnimeLayout>{
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: _backgroundImage(context)
-              ..add(_imageSelection(context))
+              //..add(_imageSelection(context))
               ..add(_title(context))
+
           ),
         ),
         Container(
+          padding: EdgeInsets.fromLTRB(15, 0, 15, 10),
           child: Text(
             widget.anime.synopsis.toString()
           ),
           width: 700,
-        )
+        ), 
+        QuickFacts(anime: widget.anime,), 
+        (widget.anime.trailer == null ) ? Text('no trailer') : TrailerContainer(widget.anime.trailer)
       ]
     );
   }

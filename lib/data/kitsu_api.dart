@@ -12,4 +12,10 @@ class KitsuAPI{
     List<Anime> topAnime= items.map((item) => Anime.fromMap(item)).toList(); 
     return topAnime;
   }
+  Future<List<Anime>> searchAnime(String query)async{
+    http.Response response = await http.get(wire + "/anime?filter[text]=$query"); 
+    List<dynamic> items = json.decode(response.body)['data']; 
+    List<Anime> topAnime= items.map((item) => Anime.fromMap(item)).toList(); 
+    return topAnime;
+  }
 }

@@ -11,9 +11,6 @@ class _AnimePage extends State<AnimePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.anime.title_canon),
-      ),
       body: AnimeLayout(anime: widget.anime,),
       backgroundColor: Colors.black,
     );
