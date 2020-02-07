@@ -39,7 +39,7 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
     keyboardFocus.dispose();
     super.dispose();
   }
-  int get _opacityValue => 255- (255*_alpha.value).toInt();
+  int get _opacityValue => 255- (255*_alpha.value).toInt(); 
 
   void _submitSearch(String query, ViewModel model, BuildContext context){
     setState(() {

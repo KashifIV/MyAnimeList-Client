@@ -24,10 +24,21 @@ class ViewModel extends Model{
     );
   }
 
+  Future<bool> authenticateUser(String email, String password) async{
+    return await api.authenticateUser(email, password);
+  }
+
   Future<List<Anime>> getTopAnime(int limit) async{
     topAnime = await api.getTopAnime(limit);
     notifyListeners(); 
     return topAnime; 
+  }
+
+  bool isAuthorized(){
+    if (api.authentication == null || api.authentication == ''){
+      return false; 
+    }
+    return true; 
   }
 
   Future<List<Anime>> getTrendingAnime(int limit) async{
