@@ -84,7 +84,7 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
                       ),
                     ),
                   ), 
-                  (isSearching) ? CircularProgressIndicator() : SizedBox(width: 30,),
+                  (isSearching) ? Container(width: 20, height: 20, child:CircularProgressIndicator(strokeWidth: 2,)) : SizedBox(width: 30,),
                 ],
               ),
               decoration: BoxDecoration(
