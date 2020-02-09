@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_anime_list_client/ui/home_page.dart';
-
+import 'package:my_anime_list_client/ui/login.dart';
 class MyDrawer extends StatelessWidget{
 
-  Map<String, Widget> items = {'Home': HomePage()};  
+  Map<String, Widget> items = {'Home': HomePage(), 'Login': LoginPage()};  
 
   List<Widget> tiles(BuildContext context){
     List<Widget> tiles = []; 

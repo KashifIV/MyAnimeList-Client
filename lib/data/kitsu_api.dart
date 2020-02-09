@@ -12,8 +12,8 @@ class KitsuAPI{
   String wire = "https://kitsu.io/api/edge"; 
   Future<bool> authenticateUser(String email, String password) async {
     String url = 'https://kitsu.io/api/oauth/token';
-    http.Response response = await http.get("$url?grant_type=password&username=$email&password=<$email"); 
-    print(json.decode(response.body)); 
+    http.Response response = await http.get("$url?grant_type=password&username=$email&password=$password"); 
+    print(response.body); 
     if (response.statusCode != 200){
       return false; 
     }
