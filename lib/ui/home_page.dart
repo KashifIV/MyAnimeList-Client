@@ -7,9 +7,8 @@ import 'package:my_anime_list_client/ui/carrousel_item.dart';
 import 'package:my_anime_list_client/ui/new_anime_carrousel.dart';
 import 'package:my_anime_list_client/ui/top_anime_carrousel.dart';
 import 'package:my_anime_list_client/ui/trending_anime_carrousel.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:tabbed_bottom_sheet/TabData.dart';
-import 'package:tabbed_bottom_sheet/tabbed_bottom_sheet.dart';
+import 'package:my_anime_list_client/ui/display_user.dart';
+import 'package:my_anime_list_client/ui/drawer.dart';
 class HomePage extends StatelessWidget{
   List<Anime> searchedAnime; 
 
@@ -17,9 +16,11 @@ class HomePage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppbar(),
+      drawer: MyDrawer(),
       body: SafeArea(
         child: ListView(
           children: <Widget>[
+            DisplayUser(),
             Container(
               padding: EdgeInsets.all(20),
               child: Text(

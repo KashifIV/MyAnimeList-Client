@@ -100,7 +100,7 @@ class _MyAppbar extends State<MyAppbar> with SingleTickerProviderStateMixin{
               IconButton(
                 enableFeedback: !_controller.isCompleted,
                 icon: Icon(Icons.menu, color: Colors.white.withAlpha(_opacityValue),),
-                onPressed: () => _controller.isCompleted ? _controller.reverse() : null,
+                onPressed: () => _controller.isCompleted ? _controller.reverse() : Scaffold.of(context).openDrawer(),
               ), 
               Text(
                 'My Anime List', 

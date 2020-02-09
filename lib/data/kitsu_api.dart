@@ -21,8 +21,11 @@ class KitsuAPI{
     return true; 
   }
   
-  Future<User> getUser(){
-    
+  Future<User> getUser() async{
+    String url = 'https://kitsu.io/api/edge/users?filter[self]=true'; 
+    http.Response response = await http.get(url, headers: {'Authorization': authentication}); 
+    print(response.body); 
+    return User.fromMap(json.decode(response.body)); 
   } 
 
   Future<List<Anime>> getTopAnime(int limit) async{

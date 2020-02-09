@@ -7,8 +7,14 @@ class DisplayUser extends StatelessWidget{
   Widget build(BuildContext context) {
     return ScopedModelDescendant<ViewModel>(
       builder: (context, child, model) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Text(
-          model.isAuthorized() ? 
+          model.isAuthorized() ? 'Welcome back ' + model.user.name:'Not Logged In', 
+          textAlign: TextAlign.end,
+          style: TextStyle(
+            fontSize: 20, 
+            fontWeight: FontWeight.bold
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_anime_list_client/data/kitsu_api.dart';
+import 'package:my_anime_list_client/data/user.dart';
 import 'package:my_anime_list_client/ui/searched_anime.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:my_anime_list_client/data/anime.dart';
@@ -10,7 +11,9 @@ class ViewModel extends Model{
   List<Anime> topAnime;
   List<Anime> newAnime;
   List<Anime> trendingAnime;  
-  List<Anime> searchedAnime;  
+  List<Anime> searchedAnime;
+  User user; 
+
   ViewModel({this.api}){
     getTopAnime(15);
     getNewAnime(15);
@@ -25,7 +28,13 @@ class ViewModel extends Model{
   }
 
   Future<bool> authenticateUser(String email, String password) async{
-    return await api.authenticateUser(email, password);
+    bool value = await api.authenticateUser(email, password);
+    if (value){
+      user = await api.getUser(); 
+      notifyListeners();
+      return true; 
+    }
+    return false;
   }
 
   Future<List<Anime>> getTopAnime(int limit) async{
